@@ -1,16 +1,43 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import Section from './ui/Section.jsx';
 import { profile } from '../data/content.js';
 
-// Submission is simulated by default. To wire to EmailJS, replace
-// `simulateSubmit` with a call to emailjs.send() — the form shape below
-// already matches a typical { name, email, message } template.
-async function simulateSubmit(payload) {
-  await new Promise((r) => setTimeout(r, 900));
-  // eslint-disable-next-line no-console
-  console.info('[Note] would send:', payload);
+// EmailJS credentials are read from Vite env vars at build time:
+//   VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY
+// Set them in `.env.local` for dev and in the Vercel project's env settings
+// for production. If any are missing, the form falls back to a logged
+// no-op so dev still works without credentials configured.
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+const emailjsConfigured = Boolean(
+  EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY
+);
+
+async function sendNote(payload) {
+  if (!emailjsConfigured) {
+    await new Promise((r) => setTimeout(r, 700));
+    // eslint-disable-next-line no-console
+    console.info('[Note] EmailJS not configured — would send:', payload);
+    return { ok: true };
+  }
+
+  await emailjs.send(
+    EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID,
+    {
+      from_name: payload.name,
+      from_email: payload.email,
+      reply_to: payload.email,
+      message: payload.message,
+      to_email: profile.email,
+    },
+    { publicKey: EMAILJS_PUBLIC_KEY }
+  );
   return { ok: true };
 }
 
@@ -38,11 +65,13 @@ export default function Note() {
 
     setStatus('sending');
     try {
-      const res = await simulateSubmit(values);
+      const res = await sendNote(values);
       if (!res.ok) throw new Error('failed');
       setStatus('sent');
       setValues(initial);
-    } catch {
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('[Note] submission failed:', err);
       setStatus('error');
       setError('Something went wrong on my end. Try emailing me directly?');
     }
