@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+
+    --c-ink-950: 8 9 12;
+    --c-ink-900: 12 14 19;
+    --c-ink-850: 16 18 24;
+    --c-ink-800: 21 23 31;
+    --c-ink-700: 28 31 42;
+    --c-ink-600: 38 42 55;
+    --c-ink-500: 59 64 80;
+
+    --c-zinc-50: 250 250 250;
+    --c-zinc-100: 244 244 245;
+    --c-zinc-200: 228 228 231;
+    --c-zinc-300: 212 212 216;
+    --c-zinc-400: 161 161 170;
+    --c-zinc-500: 113 113 122;
+    --c-zinc-600: 82 82 91;
+
+    --bg-glow-1: rgba(163, 230, 53, 0.10);
+    --bg-glow-2: rgba(99, 102, 241, 0.06);
+    --grid-line: rgba(255, 255, 255, 0.04);
+    --hairline-soft: rgba(255, 255, 255, 0.05);
+    --hairline-mid: rgba(255, 255, 255, 0.08);
+    --hairline-strong: rgba(255, 255, 255, 0.18);
+    --surface-tint: rgba(255, 255, 255, 0.04);
+    --surface-tint-mid: rgba(255, 255, 255, 0.05);
+    --scroll-track: #0c0e13;
+    --scroll-thumb: #1c1f2a;
+    --scroll-thumb-hover: #262a37;
+  }
+
+  [data-theme='light'] {
+    color-scheme: light;
+
+    --c-ink-950: 250 251 253;
+    --c-ink-900: 244 246 250;
+    --c-ink-850: 238 241 246;
+    --c-ink-800: 230 234 241;
+    --c-ink-700: 217 222 232;
+    --c-ink-600: 195 201 213;
+    --c-ink-500: 161 168 184;
+
+    --c-zinc-50: 24 24 27;
+    --c-zinc-100: 39 39 42;
+    --c-zinc-200: 50 50 57;
+    --c-zinc-300: 71 71 80;
+    --c-zinc-400: 100 100 112;
+    --c-zinc-500: 130 130 145;
+    --c-zinc-600: 175 175 188;
+
+    --bg-glow-1: rgba(101, 163, 13, 0.10);
+    --bg-glow-2: rgba(99, 102, 241, 0.05);
+    --grid-line: rgba(0, 0, 0, 0.05);
+    --hairline-soft: rgba(15, 23, 42, 0.06);
+    --hairline-mid: rgba(15, 23, 42, 0.10);
+    --hairline-strong: rgba(15, 23, 42, 0.20);
+    --surface-tint: rgba(15, 23, 42, 0.03);
+    --surface-tint-mid: rgba(15, 23, 42, 0.05);
+    --scroll-track: #eef0f4;
+    --scroll-thumb: #c8cdd8;
+    --scroll-thumb-hover: #a8aebd;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-950 text-zinc-200 font-sans antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, var(--bg-glow-1), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 30%, var(--bg-glow-2), transparent 70%);
+    background-attachment: fixed;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-zinc-50;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight text-zinc-50;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-accent;
+  }
+
+  [data-theme='light'] .eyebrow {
+    color: theme('colors.accent.deep');
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply h-px w-8 bg-accent/60 inline-block;
+  }
+
+  [data-theme='light'] .eyebrow::before {
+    background-color: theme('colors.accent.deep');
+    opacity: 0.6;
+  }
+
+  .surface {
+    @apply rounded-2xl bg-ink-900/70 backdrop-blur-sm;
+    border: 1px solid var(--hairline-soft);
+  }
+
+  .surface-hover {
+    @apply transition duration-300 hover:bg-ink-850/80 hover:-translate-y-0.5;
+  }
+
+  .surface-hover:hover {
+    border-color: rgb(163 230 53 / 0.3);
+  }
+
+  [data-theme='light'] .surface-hover:hover {
+    border-color: rgb(101 163 13 / 0.45);
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-zinc-300;
+    border: 1px solid var(--hairline-mid);
+    background-color: var(--surface-tint);
+  }
+
+  .badge-accent {
+    border-color: rgb(163 230 53 / 0.3);
+    background-color: rgb(163 230 53 / 0.10);
+    @apply text-accent;
+  }
+
+  [data-theme='light'] .badge-accent {
+    border-color: rgb(101 163 13 / 0.45);
+    background-color: rgb(101 163 13 / 0.12);
+    color: theme('colors.accent.deep');
+  }
+
+  .link-underline {
+    @apply relative inline-flex items-center gap-1 text-zinc-300 transition-colors hover:text-accent;
+  }
+
+  [data-theme='light'] .link-underline:hover {
+    color: theme('colors.accent.deep');
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 -bottom-0.5 h-px w-0 bg-accent transition-[width] duration-300;
+  }
+
+  [data-theme='light'] .link-underline::after {
+    background-color: theme('colors.accent.deep');
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .input {
+    @apply w-full rounded-lg bg-ink-850/60 px-4 py-3 text-sm text-zinc-100 placeholder:text-zinc-500 outline-none transition focus:bg-ink-850/90;
+    border: 1px solid var(--hairline-mid);
+  }
+
+  .input:focus {
+    border-color: rgb(163 230 53 / 0.4);
+    box-shadow: 0 0 0 3px rgb(163 230 53 / 0.18);
+  }
+
+  [data-theme='light'] .input:focus {
+    border-color: rgb(101 163 13 / 0.5);
+    box-shadow: 0 0 0 3px rgb(101 163 13 / 0.15);
+  }
+
+  .btn-accent-text {
+    color: #08090c;
+  }
+}
+
+/* Light-mode overrides for Tailwind utilities used directly across components.
+   This keeps the dark stylesheet idiomatic while letting us flip themes via a
+   single data attribute on <html>. */
+[data-theme='light'] .border-white\/5 { border-color: var(--hairline-soft); }
+[data-theme='light'] .border-white\/10 { border-color: var(--hairline-mid); }
+[data-theme='light'] .border-white\/30 { border-color: var(--hairline-strong); }
+[data-theme='light'] .hover\:border-white\/30:hover { border-color: var(--hairline-strong); }
+
+[data-theme='light'] .bg-white\/5 { background-color: var(--surface-tint); }
+[data-theme='light'] .bg-white\/\[0\.03\] { background-color: var(--surface-tint); }
+[data-theme='light'] .hover\:bg-white\/5:hover { background-color: var(--surface-tint-mid); }
+
+[data-theme='light'] .shadow-2xl { box-shadow: 0 20px 50px -12px rgb(15 23 42 / 0.12); }
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track { background: var(--scroll-track); }
+::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scroll-thumb-hover); }
