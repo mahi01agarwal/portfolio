@@ -30,11 +30,6 @@ export const about = {
         'Vision and embedding-based retrieval — U-Net for medical imaging, Sentence-BERT + FAISS for semantic search, MediaPipe + PyTorch3D for gesture geometry.',
     },
     {
-      title: 'Cryptography',
-      detail:
-        'Chaos-theoretic encryption, reservoir computing for image security, homomorphic encryption with the Paillier cryptosystem for privacy-preserving regression.',
-    },
-    {
       title: 'Complex Systems',
       detail:
         'Hyperchaotic and fractional-order dynamics, large-scale Wikimedia data warehousing, and the kind of data pipelines that need to survive millions of rows.',
