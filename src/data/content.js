@@ -3,9 +3,9 @@
 
 export const profile = {
   name: 'Mahima Agarwal',
-  tagline: 'I build at the seams of machine learning, cryptography, and complex systems.',
+  tagline: 'I work at the intersection of machine learning and complex systems.',
   intro:
-    "Final-year B.Tech student at Cluster Innovation Centre, University of Delhi. I work on research-heavy software, from chaos-driven image encryption and privacy-preserving ML to large-scale data tooling. I like problems where mathematics, security, and engineering all meet in the same room.",
+    "Final-year B.Tech student at Cluster Innovation Centre, University of Delhi. I work on research-heavy software, from chaos-driven image encryption and privacy-preserving ML to large-scale data tooling. I like problems where mathematics and engineering both meet in the same room.",
   location: 'New Delhi, India',
   email: 'agarwalmahima01@gmail.com',
   resumeUrl: '/CVMahima.pdf',
@@ -19,9 +19,9 @@ export const profile = {
 
 export const about = {
   paragraphs: [
-    "I'm an undergraduate researcher and engineer who keeps gravitating toward the harder, fuzzier corners of computer science, places where a system's behaviour isn't obvious from its specification. That curiosity has taken me through hyperchaotic financial models, retinal image segmentation, hand-gesture point clouds, and Wikipedia article-quality pipelines, all in the same year.",
-    "What ties these together is a research mindset: I read the paper before I touch the code, prototype in notebooks, then harden the work into something other people can run. I care about correctness, reproducibility, and the kind of small UX details that make tooling feel alive rather than just functional.",
-    "Right now I'm most interested in machine learning systems, applied cryptography, and the messy interface between the two — privacy-preserving ML, chaotic encryption, secure inference, and any system where guarantees have to survive contact with real data.",
+    "I'm an undergraduate researcher and engineer who keeps gravitating toward the harder, fuzzier corners of computer science, places where a system's behaviour isn't obvious from its specification.",
+    "What ties these together is a research mindset: I read the paper before I touch the code, prototype in notebooks, then harden the work into something other people can run.",
+    "Right now I'm most interested in machine learning systems.",
   ],
   pillars: [
     {
